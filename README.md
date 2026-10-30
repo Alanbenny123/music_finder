@@ -20,7 +20,7 @@ A modern web application that separates music/background music from videos into 
 - Python 3.8 or higher
 - Node.js 14 or higher
 - FFmpeg installed on your system
-- RapidAPI key (for music recognition)
+- RapidAPI key (optional, for music recognition)
 
 ## Installation
 
@@ -44,8 +44,7 @@ cd frontend
 npm install
 ```
 
-4. Set up environment variables:
-   Create a `.env` file in the root directory and add your RapidAPI key:
+4. To enable music recognition, create a `.env` file in the root directory and add your RapidAPI key:
 
 ```
 RAPIDAPI_KEY=your_rapidapi_key_here
@@ -77,6 +76,10 @@ npm start
 4. View the identified music information (if available)
 5. Download individual stems using the download buttons
 
+Uploads are limited to 100 MB. If a RapidAPI key is configured, the app sends
+the first 10 seconds of audio to Shazam for recognition. Stem separation still
+works when recognition is unavailable or no song is found.
+
 ## Supported File Formats
 
 - Video: MP4, AVI, MOV, MKV
@@ -88,7 +91,7 @@ npm start
 - Frontend: React with Material-UI
 - Audio Processing: Demucs v4 (Facebook Research)
 - Music Recognition: Shazam API (via RapidAPI)
-- File Processing: FFmpeg and MoviePy
+- File Processing: FFmpeg through Demucs
 
 ## API Keys
 
