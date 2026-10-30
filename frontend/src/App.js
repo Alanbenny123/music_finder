@@ -28,6 +28,8 @@ import {
 import { styled } from '@mui/material/styles';
 import axios from 'axios';
 
+const API_BASE_URL = (process.env.REACT_APP_API_BASE_URL || '').replace(/\/$/, '');
+
 const Input = styled('input')({
   display: 'none',
 });
@@ -73,10 +75,10 @@ function App() {
 
     try {
       // First check if the server is healthy
-      const healthCheck = await axios.get('http://localhost:5000/health');
+      const healthCheck = await axios.get(`${API_BASE_URL}/health`);
       console.log('Server health check:', healthCheck.data);
 
-      const response = await axios.post('http://localhost:5000/api/separate', formData, {
+      const response = await axios.post(`${API_BASE_URL}/api/separate`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -103,13 +105,8 @@ function App() {
     }
   };
 
-  const handleDownload = async (url, sourceName) => {
-    try {
-      window.location.href = `http://localhost:5000${url}`;
-    } catch (err) {
-      console.error('Download error:', err);
-      setError('Error downloading file');
-    }
+  const handleDownload = (url) => {
+    window.location.href = `${API_BASE_URL}${url}`;
   };
 
   return (
@@ -192,7 +189,7 @@ function App() {
                     <ListItemText primary={source.charAt(0).toUpperCase() + source.slice(1)} />
                     <IconButton
                       edge="end"
-                      onClick={() => handleDownload(url, source)}
+                      onClick={() => handleDownload(url)}
                       color="primary"
                     >
                       <Download />

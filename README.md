@@ -68,6 +68,12 @@ npm start
 
 3. Open your browser and navigate to `http://localhost:3000`
 
+The frontend development server forwards API requests to the Flask server on
+`127.0.0.1:5000`. For a separate frontend deployment, set
+`REACT_APP_API_BASE_URL` to the backend origin when building the frontend.
+When serving both behind one origin, route `/api/*` and `/health` to Flask.
+The Flask development server listens only on the local machine.
+
 ## Usage
 
 1. Click the "Select File" button to choose a video or audio file
